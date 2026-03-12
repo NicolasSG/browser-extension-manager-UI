@@ -1,80 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <link rel="stylesheet" href="./blocks/style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Browser extensions manager UI</title>
+    <title>Frontend Mentor | Browser extensions manager UI</title>
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 1. Header: logo + botão de tema -->
+    <header class="header">
+      <img
+        class="header__logo"
+        src="./assets/images/logo.svg"
+        alt="Browser Extensions Manager"
+      />
+      <button class="header__theme_button">
+        <img src="./assets/images/icon-sun.svg" alt="Switch to light theme" />
+      </button>
+    </header>
 
-  Extensions List
+    <!-- 2. Conteúdo principal -->
+    <main>
+      <!-- Título + filtros -->
+      <section class="controls">
+        <h1 class="controls__title">Extensions List</h1>
+        <div class="controls__filters">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">Active</button>
+          <button class="filter-btn">Inactive</button>
+        </div>
+      </section>
+      <!-- Grade de cards -->
+      <template id="card-template">
+        <article class="card">
+          <div class="card__header">
+            <img
+              class="card__logo"
+              src="./assets/images/logo-devlens.svg"
+              alt="DevLens"
+            />
+            <div class="card__texts">
+              <h2 class="card__title">DevLens</h2>
+              <p class="card__description">
+                Quickly inspect page layouts and visualize element boundaries.
+              </p>
+            </div>
+          </div>
+          <div class="card__buttons">
+            <button class="card__remove">Remove</button>
+            <label class="card__toggle">
+              <input type="checkbox" checked />
+              <span class="toggle__slider"></span>
+            </label>
+          </div>
+        </article>
+      </template>
+      <section class="cards">
+        <!-- Um card individual -->
+      </section>
+    </main>
 
-  All
-  Active
-  Inactive
-
-  <!-- If you plan to use the JSON file to populate the data dynamically, you can delete the content below -->
-
-  DevLens
-  Quickly inspect page layouts and visualize element boundaries.
-  Remove
-
-  StyleSpy
-  Instantly analyze and copy CSS from any webpage element.
-  Remove
-
-  SpeedBoost
-  Optimizes browser resource usage to accelerate page loading.
-  Remove
-
-  JSONWizard
-  Formats, validates, and prettifies JSON responses in-browser.
-  Remove
-
-  TabMaster Pro
-  Organizes browser tabs into groups and sessions.
-  Remove
-
-  ViewportBuddy
-  Simulates various screen resolutions directly within the browser.
-  Remove
-
-  Markup Notes
-  Enables annotation and notes directly onto webpages for collaborative debugging.
-  Remove
-
-  GridGuides
-  Overlay customizable grids and alignment guides on any webpage.
-  Remove
-
-  Palette Picker
-  Instantly extracts color palettes from any webpage.
-  Remove
-
-  LinkChecker
-  Scans and highlights broken links on any page.
-  Remove
-
-  DOM Snapshot
-  Capture and export DOM structures quickly.
-  Remove
-
-  ConsolePlus
-  Enhanced developer console with advanced filtering and logging.
-  Remove
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+      Coded by <a href="#">Your Name Here</a>.
+    </div>
+    <script src="./scripts/scripts.js" defer></script>
+  </body>
 </html>

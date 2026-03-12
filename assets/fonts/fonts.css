@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "NotoSans"; /* Nome que você vai usar no CSS */
+  src:
+    url("./static/NotoSans-Regular.ttf") format("ttf"),
+    url("./static/NotoSans-Regular.ttf") format("truetype"); /* Caminho do arquivo */
+  font-weight: normal;
+  font-style: normal;
+}

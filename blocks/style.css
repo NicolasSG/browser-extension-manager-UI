@@ -1,0 +1,208 @@
+@import url("../assets/fonts/fonts.css");
+*,
+*::before,
+*::after {
+  /* zera margin, padding e box-sizing */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tema escuro — padrão */
+[data-theme="dark"] {
+  --color-bg: hsl(227, 75%, 14%);
+  --color-card: hsl(225, 23%, 24%);
+  --color-text: hsl(0, 0%, 100%);
+  --color-accent: hsl(3, 86%, 64%);
+  --color-header: hsl(225, 23%, 24%);
+  --color-button-remove: hsl(225, 23%, 24%);
+  --color-toggle-off: hsl(226, 11%, 37%);
+}
+
+/* Tema claro */
+[data-theme="light"] {
+  --color-bg: hsl(200, 60%, 99%);
+  --color-card: hsl(0, 0%, 100%);
+  --color-text: hsl(228, 10%, 14%);
+  --color-accent: hsl(3, 71%, 56%);
+  --color-header: hsl(0, 0%, 100%);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Noto Sans", sans-serif; /* importar do Google Fonts */
+  max-width: 1170px;
+  margin: 0 auto;
+  margin-top: 39px;
+  margin-bottom: 20px;
+}
+
+.header {
+  background-color: var(--color-header);
+  padding: 0.7rem 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.header__logo {
+  color: var(--color-text);
+}
+
+.header__theme_button {
+  background: var(--color-toggle-off);
+  color: var(--color-text);
+  padding: 13px;
+  border-radius: 10px;
+  border: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 68px;
+  padding-bottom: 30px;
+}
+
+.controls__filters {
+  display: flex;
+  gap: 16px;
+}
+
+.filter-btn {
+  border-radius: 20px;
+  border: 1px solid var(--color-toggle-off) /* qual cor? */;
+  background: var(--color-card);
+  color: var(--color-text);
+  padding: 10px 18px;
+  font-size: 20px;
+}
+
+.filter-btn.active {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  border: 0;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-bottom: 100px;
+}
+
+.card {
+  max-width: 382px;
+  background: var(--color-card);
+  padding: 20px 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: var(--color-toggle-off);
+}
+
+.card__remove {
+  background: var(--color-button-remove);
+  color: var(--color-text);
+  padding: 10px 15px;
+  border-style: solid;
+  border-radius: 20px;
+  border-color: var(--color-toggle-off);
+  border-width: 0.5px;
+  font-size: 15px;
+}
+
+.card__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card__header {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  align-items: self-start;
+}
+
+.card__logo {
+}
+
+.card__texts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.card__title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card__description {
+  font-size: 16px;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+/* The container (label) - the switch's track area */
+.card__toggle {
+  position: relative;
+  display: inline-block;
+  width: 43px; /* Adjust width/height as needed */
+  height: 21px;
+  cursor: pointer; /* Makes the entire area clickable */
+  align-self: center;
+}
+
+/* Hide the default HTML checkbox */
+.card__toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider track (the background) */
+.toggle__slider {
+  position: absolute;
+  top: 0;
+  left: 6px;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-toggle-off); /* Off state color */
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px; /* Makes it a pill shape */
+}
+
+/* The slider knob (the circular part) */
+.toggle__slider:before {
+  position: absolute;
+  content: "";
+  height: 16px; /* Slightly smaller than the track height - padding */
+  width: 16px;
+  left: 3px; /* Padding from the left edge */
+  bottom: 3px; /* Padding from the bottom edge */
+  background-color: white; /* Knob color */
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%; /* Makes it a circle */
+}
+
+/* Change the background color when the checkbox is checked */
+input:checked + .toggle__slider {
+  background-color: var(--color-accent); /* On state color */
+}
+
+/* Move the knob to the right when the checkbox is checked */
+input:checked + .toggle__slider:before {
+  -webkit-transform: translateX(26px); /* Width of knob + left padding */
+  -ms-transform: translateX(26px);
+  transform: translateX(16px);
+}
