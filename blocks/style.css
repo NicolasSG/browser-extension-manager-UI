@@ -2,7 +2,6 @@
 *,
 *::before,
 *::after {
-  /* zera margin, padding e box-sizing */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,41 +9,85 @@
 
 /* Tema escuro — padrão */
 [data-theme="dark"] {
-  --color-bg: hsl(227, 75%, 14%);
-  --color-card: hsl(225, 23%, 24%);
+  --color-bg: linear-gradient(180deg, #040918 0%, #091540 100%);
+  --color-card_header: hsl(224, 26%, 16%);
   --color-text: hsl(0, 0%, 100%);
-  --color-accent: hsl(3, 86%, 64%);
-  --color-header: hsl(225, 23%, 24%);
-  --color-button-remove: hsl(225, 23%, 24%);
-  --color-toggle-off: hsl(226, 11%, 37%);
+  --color-accent: hsl(3, 87%, 64%);
+  --color-button-remove: hsl(224, 26%, 16%);
+  --color-buttons: hsl(227, 23%, 24%);
+  --color-button-hover: hsl(222, 13%, 36%);
+  --color-toggle-off: hsl(224, 12%, 36%);
+  --color-text-active: hsl(224, 26%, 16%);
+  --color-border: hsl(224, 12%, 36%);
+  --color-button-remove-hover: hsl(3, 87%, 64%);
+  --color-button-remove-text-hover: hsl(0, 0%, 100%);
+  --color-button-theme: hsl(227, 23%, 24%);
+  --color-button-theme-hover: hsl(222, 13%, 36%);
 }
 
 /* Tema claro */
 [data-theme="light"] {
-  --color-bg: hsl(200, 60%, 99%);
-  --color-card: hsl(0, 0%, 100%);
-  --color-text: hsl(228, 10%, 14%);
-  --color-accent: hsl(3, 71%, 56%);
+  --color-bg: linear-gradient(180deg, #ebf2fc 0%, #eef8f9 100%);
+  --color-card_header: hsl(0, 0%, 100%);
+  --color-text: hsl(227, 75%, 14%);
+  --color-accent: hsl(3, 77%, 44%);
   --color-header: hsl(0, 0%, 100%);
+  --color-toggle-off: hsl(0, 0%, 78%);
+  --font-weight: bold;
+  --color-text-active: hsl(0, 0%, 100%);
+  --color-border: hsl(60, 3%, 93%);
+  --color-buttons: hsl(0, 0%, 100%);
+  --color-button-remove-hover: hsl(4, 76%, 44%);
+  --color-button-remove-text-hover: hsl(0, 0%, 100%);
+  --color-button-hover: hsl(0, 0%, 93%, 80%);
+  --color-button-theme-hover: hsl(96, 4%, 78%);
 }
 
 body {
-  background-color: var(--color-bg);
+  background-image: var(--color-bg);
   color: var(--color-text);
-  font-family: "Noto Sans", sans-serif; /* importar do Google Fonts */
+  font-family: "Noto Sans", sans-serif;
   max-width: 1170px;
   margin: 0 auto;
   margin-top: 39px;
   margin-bottom: 20px;
 }
 
+@media screen and (max-width: 1200px) {
+  body {
+    margin: 39px 15px;
+  }
+}
+
+@media screen and (max-width: 975px) {
+  body {
+    max-width: 780px;
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  body {
+    margin: 20px 15px;
+  }
+}
+
 .header {
-  background-color: var(--color-header);
+  background-color: var(--color-card_header);
   padding: 0.7rem 0.9rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header__right_side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .header__logo {
@@ -52,11 +95,15 @@ body {
 }
 
 .header__theme_button {
-  background: var(--color-toggle-off);
+  background: var(--color-button-theme);
   color: var(--color-text);
   padding: 13px;
   border-radius: 10px;
   border: 0;
+}
+
+.header__theme_button:hover {
+  background-color: var(--color-button-theme-hover);
 }
 
 .controls {
@@ -67,6 +114,14 @@ body {
   padding-bottom: 30px;
 }
 
+@media screen and (max-width: 700px) {
+  .controls {
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 40px;
+  }
+}
+
 .controls__filters {
   display: flex;
   gap: 16px;
@@ -74,17 +129,27 @@ body {
 
 .filter-btn {
   border-radius: 20px;
-  border: 1px solid var(--color-toggle-off) /* qual cor? */;
-  background: var(--color-card);
+  border: 1px solid var(--color-buttons) /* qual cor? */;
+  background: var(--color-buttons);
   color: var(--color-text);
   padding: 10px 18px;
   font-size: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .filter-btn.active {
   background-color: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-text-active);
   border: 0;
+}
+
+.filter-btn:hover {
+  background-color: var(--color-button-hover);
+  color: var(--color-card);
+}
+
+.filter-btn:focus {
+  background-color: var(--color-toggle-off);
 }
 
 .cards {
@@ -94,22 +159,40 @@ body {
   padding-bottom: 100px;
 }
 
+@media screen and (max-width: 975px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .cards {
+    grid-template-columns: auto;
+    justify-content: center;
+  }
+}
+
 .card {
   max-width: 382px;
-  background: var(--color-card);
+  max-height: 203.53px;
+  background: var(--color-card_header);
   padding: 20px 20px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 45px;
   border-style: solid;
   border-width: 0.5px;
-  border-color: var(--color-toggle-off);
+  border-color: var(--color-border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card__remove {
   background: var(--color-button-remove);
   color: var(--color-text);
+  font-weight: var(--font-weight);
   padding: 10px 15px;
   border-style: solid;
   border-radius: 20px;
@@ -118,9 +201,19 @@ body {
   font-size: 15px;
 }
 
+.card__remove:focus {
+  background-color: var(--color-button-hover);
+}
+
+.card__remove:hover {
+  background-color: var(--color-button-remove-hover);
+  color: var(--color-button-remove-text-hover);
+}
+
 .card__buttons {
   display: flex;
   justify-content: space-between;
+  justify-items: end;
 }
 
 .card__header {
@@ -134,6 +227,7 @@ body {
 }
 
 .card__texts {
+  max-height: 76.05px;
   display: flex;
   flex-direction: column;
   gap: 10px;

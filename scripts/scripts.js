@@ -1,7 +1,48 @@
+let currentTheme = document.documentElement.getAttribute("data-theme");
+let currentThemeIcon = document.querySelector(".header__theme_icon");
+
+let themeButton = document.querySelector(".header__theme_icon");
+themeButton.addEventListener("click", (event) => {
+  if (currentTheme === "light") {
+    currentTheme = "dark";
+    currentThemeIcon.src = "./assets/images/icon-sun.svg";
+  } else {
+    currentTheme = "light";
+    currentThemeIcon.src = "./assets/images/icon-moon.svg";
+  }
+  document.documentElement.setAttribute("data-theme", currentTheme);
+  document.documentElement.setAttribute("header__theme_icon", currentThemeIcon);
+});
+
+let allExtensions = [];
+
 async function loadExtensions() {
   const response = await fetch("./data.json");
-  const data = await response.json();
-  renderCards(data);
+  allExtensions = await response.json();
+  renderCards(allExtensions);
+  const buttons = document.querySelectorAll(".filter-btn");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      buttons.forEach((b) => b.classList.remove("active"));
+      event.target.classList.add("active");
+
+      const filterValue = event.target.textContent.toLowerCase();
+      filterExtensions(filterValue);
+    });
+  });
+}
+
+function filterExtensions(filterValue) {
+  if (filterValue === "active") {
+    const ativos = allExtensions.filter((ext) => ext.isActive === true);
+    renderCards(ativos);
+  } else if (filterValue === "inactive") {
+    const inativos = allExtensions.filter((ext) => ext.isActive === false);
+    renderCards(inativos);
+  } else {
+    renderCards(allExtensions);
+  }
 }
 
 function renderCards(extensions) {
