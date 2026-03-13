@@ -16,11 +16,11 @@
 
     <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
     <style>
-      .attribution {
+      .footer {
         font-size: 11px;
         text-align: center;
       }
-      .attribution a {
+      .footer a {
         color: hsl(228, 45%, 44%);
       }
     </style>
@@ -34,9 +34,9 @@
           src="./assets/images/logo.svg"
           alt="Browser Extensions Manager"
         />
-        <p>Extensions</p>
+        <h1>Extensions</h1>
       </div>
-      <button class="header__theme_button">
+      <button class="header__theme_button" type="button">
         <img
           class="header__theme_icon"
           src="./assets/images/icon-sun.svg"
@@ -47,18 +47,25 @@
 
     <!-- 2. Conteúdo principal -->
     <main>
+      <div aria-live="polite" class="sr-only" id="announcer"></div>
       <!-- Título + filtros -->
       <section class="controls">
-        <h1 class="controls__title">Extensions List</h1>
+        <h2 class="controls__title">Extensions List</h2>
         <div class="controls__filters">
-          <button class="filter-btn active">All</button>
-          <button class="filter-btn">Active</button>
-          <button class="filter-btn">Inactive</button>
+          <button class="filter-btn active" type="button" aria-pressed="true">
+            All
+          </button>
+          <button class="filter-btn" type="button" aria-pressed="false">
+            Active
+          </button>
+          <button class="filter-btn" type="button" aria-pressed="false">
+            Inactive
+          </button>
         </div>
       </section>
       <!-- Grade de cards -->
       <template id="card-template">
-        <article class="card">
+        <li class="card">
           <div class="card__header">
             <img
               class="card__logo"
@@ -66,27 +73,27 @@
               alt="DevLens"
             />
             <div class="card__texts">
-              <h2 class="card__title">DevLens</h2>
+              <h3 class="card__title">DevLens</h3>
               <p class="card__description">
                 Quickly inspect page layouts and visualize element boundaries.
               </p>
             </div>
           </div>
           <div class="card__buttons">
-            <button class="card__remove">Remove</button>
+            <button class="card__remove" type="button" aria-label="">
+              Remove
+            </button>
             <label class="card__toggle">
               <input type="checkbox" checked />
               <span class="toggle__slider"></span>
+              <span class="sr-only">Toggle extension</span>
             </label>
           </div>
-        </article>
+        </li>
       </template>
-      <section class="cards">
-        <!-- Um card individual -->
-      </section>
+      <ul class="cards"></ul>
     </main>
-
-    <div class="attribution">
+    <div class="footer">
       Challenge by
       <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
       Coded by <a href="#">NicolasSG</a>.

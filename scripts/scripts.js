@@ -1,12 +1,14 @@
 let currentTheme = document.documentElement.getAttribute("data-theme");
-let currentThemeIcon = document.querySelector(".header__theme_icon");
+const currentThemeIcon = document.querySelector(".header__theme_icon");
 
 let themeButton = document.querySelector(".header__theme_icon");
-themeButton.addEventListener("click", (event) => {
+themeButton.addEventListener("click", () => {
   if (currentTheme === "light") {
+    announcer.textContent = "Dark theme activated";
     currentTheme = "dark";
     currentThemeIcon.src = "./assets/images/icon-sun.svg";
   } else {
+    announcer.textContent = "Light theme activated";
     currentTheme = "light";
     currentThemeIcon.src = "./assets/images/icon-moon.svg";
   }
@@ -17,32 +19,44 @@ themeButton.addEventListener("click", (event) => {
 let allExtensions = [];
 
 async function loadExtensions() {
-  const response = await fetch("./data.json");
-  allExtensions = await response.json();
-  renderCards(allExtensions);
-  const buttons = document.querySelectorAll(".filter-btn");
+  try {
+    const response = await fetch("./data.json");
+    allExtensions = await response.json();
+    renderCards(allExtensions);
+    const buttons = document.querySelectorAll(".filter-btn");
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      buttons.forEach((b) => b.classList.remove("active"));
-      event.target.classList.add("active");
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        buttons.forEach((b) => b.classList.remove("active"));
+        buttons.forEach((b) => (b.ariaPressed = "false"));
+        event.target.classList.add("active");
+        event.target.ariaPressed = "true";
 
-      const filterValue = event.target.textContent.toLowerCase();
-      filterExtensions(filterValue);
+        const filterValue = event.target.textContent.toLowerCase().trim();
+        filterExtensions(filterValue);
+      });
     });
-  });
+  } catch (error) {
+    const container = document.querySelector(".cards");
+    container.innerHTML = "<p>Falha ao carregar dados</p>";
+    announcer.textContent = "Falha ao carregar dados";
+    console.error("Erro ao carregar extensões:", error);
+  }
 }
 
 function filterExtensions(filterValue) {
+  let filtered;
+
   if (filterValue === "active") {
-    const ativos = allExtensions.filter((ext) => ext.isActive === true);
-    renderCards(ativos);
+    filtered = allExtensions.filter((ext) => ext.isActive === true);
   } else if (filterValue === "inactive") {
-    const inativos = allExtensions.filter((ext) => ext.isActive === false);
-    renderCards(inativos);
+    filtered = allExtensions.filter((ext) => ext.isActive === false);
   } else {
-    renderCards(allExtensions);
+    filtered = allExtensions;
   }
+
+  announcer.textContent = filtered.length + " extensions found";
+  renderCards(filtered);
 }
 
 function renderCards(extensions) {
@@ -61,9 +75,29 @@ function renderCards(extensions) {
     card.querySelector(".card__description").textContent = ext.description;
     card.querySelector("input").checked = ext.isActive;
 
+    card
+      .querySelector(".card__remove")
+      .setAttribute("aria-label", "Remove " + ext.name);
+
+    card.querySelector(".sr-only").textContent = "Toggle " + ext.name;
     const article = card.querySelector(".card");
     card.querySelector(".card__remove").addEventListener("click", () => {
+      announcer.textContent = ext.name + " card removed";
+      allExtensions = allExtensions.filter((e) => e.name !== ext.name);
       article.remove();
+    });
+
+    card.querySelector("input").addEventListener("change", (event) => {
+      const ext_found = allExtensions.find((e) => e.name === ext.name);
+      if (ext_found) {
+        ext_found.isActive = event.target.checked;
+      }
+
+      if (event.target.checked) {
+        announcer.textContent = ext.name + " toggle activated";
+      } else {
+        announcer.textContent = ext.name + " toggle deactivated";
+      }
     });
     // 3. Insere na página
     container.appendChild(card);
