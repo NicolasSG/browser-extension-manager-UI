@@ -40,7 +40,8 @@
   --color-button-remove-hover: hsl(4, 76%, 44%);
   --color-button-remove-text-hover: hsl(0, 0%, 100%);
   --color-button-hover: hsl(0, 0%, 93%, 80%);
-  --color-button-theme-hover: hsl(96, 4%, 78%);
+  --color-button-theme: hsl(0, 0%, 93%);
+  --color-button-theme-hover: hsl(0, 0%, 78%);
 }
 
 body {
@@ -221,9 +222,6 @@ body {
   gap: 15px;
   width: 100%;
   align-items: self-start;
-}
-
-.card__logo {
 }
 
 .card__texts {
