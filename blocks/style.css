@@ -7,6 +7,10 @@
   box-sizing: border-box;
 }
 
+h1 {
+  font-size: 1em;
+}
+
 /* Tema escuro — padrão */
 [data-theme="dark"] {
   --color-bg: linear-gradient(180deg, #040918 0%, #091540 100%);
@@ -123,6 +127,10 @@ body {
   }
 }
 
+.controls__title {
+  font-size: 33px;
+}
+
 .controls__filters {
   display: flex;
   gap: 16px;
@@ -234,12 +242,12 @@ body {
 }
 
 .card__title {
-  font-size: 1.2rem;
+  font-size: 21px;
   font-weight: bold;
 }
 
 .card__description {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--color-text);
   line-height: 1.3;
 }
